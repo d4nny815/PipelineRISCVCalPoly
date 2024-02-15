@@ -1,0 +1,19 @@
+# compile verilog/system verilog design source files
+sv xil_defaultlib  \
+"../../../../../rtl/Branch_cond_gen.sv" \
+"../../../../../rtl/alu.sv" \
+"../../../../../rtl/control_unit.sv" \
+"../../../../../rtl/hazard.sv" \
+"../../../../../rtl/immed_gen.sv" \
+"../../../../../rtl/structs.sv" \
+"../../../../../rtl/otter_mcu.sv" \
+"../../../../../rtl/otter_memory.sv" \
+"../../../../../rtl/reg_file.sv" \
+"../../../../../rtl/register_nb.sv" \
+"../../../../../rtl/test_pipeline.sv" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
