@@ -25,7 +25,7 @@
 // 
 // 
 
-module branch_cond_gen(
+module BranchCondGen(
     input [31:0] rs1,
     input [31:0] rs2,
     input [2:0] instr,

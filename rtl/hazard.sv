@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module Hazard_Unit (
+module HazardUnit (
     input [4:0] rs1_D,
     input [4:0] rs2_D,
     input [4:0] rs1_E,
@@ -19,34 +19,42 @@ module Hazard_Unit (
     output logic flush_E,
     output logic flush_D
     );
+
+    typedef enum logic [1:0] {
+        EX = 2'b00,
+        MEM = 2'b01,
+        WB = 2'b10
+    } ForwardReg_t;
+
+    parameter MEM_READ_DATA = 2'b10;
     
     logic load;
     always_comb begin
         if ((rs1_E == rd_M) && regWrite_M && (rs1_E != 0)) begin
-            forwardA_E = 2'b10;
+            forwardA_E = MEM;
         end
         else if ((rs1_E == rd_W) && regWrite_W && (rs1_E != 0)) begin
-            forwardA_E = 2'b01;
+            forwardA_E = WB;
         end
         else begin
-            forwardA_E = 2'b00;
+            forwardA_E = EX;
         end
     end
 
     always_comb begin
         if ((rs2_E == rd_M) && regWrite_M && (rs2_E != 0)) begin
-            forwardB_E = 2'b10;
+            forwardB_E = MEM;
         end
         else if ((rs2_E == rd_W) && regWrite_W && (rs2_E != 0)) begin
-            forwardB_E = 2'b01;
+            forwardB_E = WB;
         end
         else begin
-            forwardB_E = 2'b00;
+            forwardB_E = EX;
         end
     end
 
     always_comb begin
-        load = ((rf_wr_sel_E == 2'b01) & ((rs1_D == rd_E) | (rs2_D == rd_E)));
+        load = ((rf_wr_sel_E == MEM_READ_DATA) & ((rs1_D == rd_E) | (rs2_D == rd_E)));
         stall_F = load;
         stall_D = load;
         flush_E = load | pcSource_E;

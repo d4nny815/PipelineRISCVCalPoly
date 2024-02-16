@@ -4,7 +4,7 @@
 	
 	#Setup stuff
 	addi a0, zero, 50 #50 is an arbitrary number, most tests will end up with a result of 50 to keep things simple
-	addi a1, zero, 24
+	addi a1, zero, 32
 
 tests:	
 	#jal test
@@ -12,9 +12,15 @@ tests:
 	beq zero, zero, fail
 	skip:
 	
+	nop
+	nop
+	
 	#jalr test
 	jalr t0, 0(a1)
 	beq zero, zero, fail
+	
+	nop
+	nop
 	
 	j tests
 

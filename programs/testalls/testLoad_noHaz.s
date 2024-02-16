@@ -12,7 +12,11 @@
 tests:	
 	#Load test
 	la t0, TEST
+	#nop
+	#nop
 	lw t1, 0(t0)
+	#nop
+	#nop
 	bne t1, a0, fail
 	
 	j tests

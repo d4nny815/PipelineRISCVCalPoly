@@ -37,6 +37,7 @@ module ImmedGen (
             3'b010: immed_ext = { {20{ir[31]}}, ir[7], ir[30:25], ir[11:8], 1'b0};
             3'b011: immed_ext = { {12{ir[31]}}, ir[19:12], ir[20], ir[30:21], 1'b0};
             3'b100: immed_ext = { ir[31:12], 12'b0};
+            default : immed_ext = 32'hdeadbeef;
         endcase
     end
 

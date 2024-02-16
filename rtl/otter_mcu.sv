@@ -61,11 +61,12 @@ module OTTER_MCU (
         .MEM_DIN2       (pipeline_reg.EX_MEM.write_data),  
         .MEM_SIZE       (pipeline_reg.EX_MEM.memRead_size),
         .MEM_SIGN       (pipeline_reg.EX_MEM.memRead_sign),
-        .IO_IN          (0),
-        .IO_WR          (),
+        .IO_IN          (IOBUS_IN),
+        .IO_WR          (IOBUS_WR),
         .MEM_DOUT1      (IR),
         .MEM_DOUT2      ()  
     );
+    
 
 
 // ************************************************************************************************
@@ -166,7 +167,7 @@ module OTTER_MCU (
 
     
 
-    branch_cond_gen branch_conditional(
+    BranchCondGen BRANCH_CONDITIONAL(
         .rs1            (ALU_forward_muxA),
         .rs2            (ALU_forward_muxB),
         .instr          (pipeline_reg.DE_EX.IR[14:12]),
@@ -177,15 +178,15 @@ module OTTER_MCU (
     always_comb begin
         case (forwardA_E)
             2'b00: ALU_forward_muxA = pipeline_reg.DE_EX.rs1_data;
-            2'b01: ALU_forward_muxA = rf_write_data;
-            2'b10: ALU_forward_muxA = pipeline_reg.EX_MEM.ALU_result;
+            2'b01: ALU_forward_muxA = pipeline_reg.EX_MEM.ALU_result;
+            2'b10: ALU_forward_muxA = rf_write_data;
             default: ALU_forward_muxA = 32'hdeadbeef;
         endcase
 
         case (forwardB_E) 
             2'b00: ALU_forward_muxB = pipeline_reg.DE_EX.rs2_data;
-            2'b01: ALU_forward_muxB = rf_write_data;
-            2'b10: ALU_forward_muxB = pipeline_reg.EX_MEM.ALU_result;
+            2'b01: ALU_forward_muxB = pipeline_reg.EX_MEM.ALU_result;
+            2'b10: ALU_forward_muxB = rf_write_data;
             default: ALU_forward_muxB = 32'hdeadbeef;
         endcase
 
@@ -205,7 +206,7 @@ module OTTER_MCU (
         // ?auipc
         case (pipeline_reg.DE_EX.IR[6:0])
             7'b0010111: alu_result = BRANCH_target;
-            default : alu_result = ALU.result;
+            default : alu_result = OTTER_ALU.result;
         endcase
 
     end
@@ -214,8 +215,9 @@ module OTTER_MCU (
         .alu_fun        (pipeline_reg.DE_EX.alu_fun),
         .srcA           (ALU_forward_muxA), 
         .srcB           (ALU_srcB), 
-        .result         ()
+        .result         (IOBUS_ADDR)
     );
+    
 
 
 // ************************************************************************************************
@@ -224,31 +226,19 @@ module OTTER_MCU (
 
     // PIPELINE REG EX_MEM
     always_ff @(posedge CLK) begin
-        if (flush_E == 1'b1) begin
-            pipeline_reg.EX_MEM.PC <= 0;
-            pipeline_reg.EX_MEM.ALU_result <= 0;
-            pipeline_reg.EX_MEM.write_data <= 0;
-            pipeline_reg.EX_MEM.rd_addr <= 0;
-            pipeline_reg.EX_MEM.regWrite <= 0;
-            pipeline_reg.EX_MEM.rf_sel <= 0;
-            pipeline_reg.EX_MEM.memWrite <= 0;
-            pipeline_reg.EX_MEM.memRead <= 0;
-            pipeline_reg.EX_MEM.memRead_size <= 0;
-            pipeline_reg.EX_MEM.memRead_sign <= 0;
-        end
-        else begin
-            pipeline_reg.EX_MEM.PC <= pipeline_reg.DE_EX.PC;
-            pipeline_reg.EX_MEM.ALU_result <= alu_result;
-            pipeline_reg.EX_MEM.write_data <= ALU_forward_muxB;
-            pipeline_reg.EX_MEM.rf_sel <= pipeline_reg.DE_EX.rf_sel;
-            pipeline_reg.EX_MEM.rd_addr <= pipeline_reg.DE_EX.rd_addr;
-            pipeline_reg.EX_MEM.regWrite <= pipeline_reg.DE_EX.regWrite;
-            pipeline_reg.EX_MEM.memWrite <= pipeline_reg.DE_EX.memWrite;
-            pipeline_reg.EX_MEM.memRead <= pipeline_reg.DE_EX.memRead;
-            pipeline_reg.EX_MEM.memRead_size <= pipeline_reg.DE_EX.IR[13:12];
-            pipeline_reg.EX_MEM.memRead_sign <= pipeline_reg.DE_EX.IR[14];
-        end
+        pipeline_reg.EX_MEM.PC <= pipeline_reg.DE_EX.PC;
+        pipeline_reg.EX_MEM.ALU_result <= alu_result;
+        pipeline_reg.EX_MEM.write_data <= ALU_forward_muxB;
+        pipeline_reg.EX_MEM.rf_sel <= pipeline_reg.DE_EX.rf_sel;
+        pipeline_reg.EX_MEM.rd_addr <= pipeline_reg.DE_EX.rd_addr;
+        pipeline_reg.EX_MEM.regWrite <= pipeline_reg.DE_EX.regWrite;
+        pipeline_reg.EX_MEM.memWrite <= pipeline_reg.DE_EX.memWrite;
+        pipeline_reg.EX_MEM.memRead <= pipeline_reg.DE_EX.memRead;
+        pipeline_reg.EX_MEM.memRead_size <= pipeline_reg.DE_EX.IR[13:12];
+        pipeline_reg.EX_MEM.memRead_sign <= pipeline_reg.DE_EX.IR[14];
     end
+    
+    assign IOBUS_OUT = pipeline_reg.EX_MEM.write_data;
 
 // ************************************************************************************************
 // * Write (Write Back) stage
@@ -256,22 +246,12 @@ module OTTER_MCU (
 
     // PIPELINE REG MEM_WB
     always_ff @(posedge CLK) begin
-        if (flush_E == 1'b1) begin
-            pipeline_reg.MEM_WB.PC_plus4 <= 0;
-            pipeline_reg.MEM_WB.ALU_result <= 0;
-            pipeline_reg.MEM_WB.memRead_data <= 0;
-            pipeline_reg.MEM_WB.rd_addr <= 0;
-            pipeline_reg.MEM_WB.rf_sel <= 0;
-            pipeline_reg.MEM_WB.regWrite <= 0;
-        end
-        else begin
-            pipeline_reg.MEM_WB.PC_plus4 <= pipeline_reg.EX_MEM.PC + 4;
-            pipeline_reg.MEM_WB.ALU_result <= pipeline_reg.EX_MEM.ALU_result;
-            pipeline_reg.MEM_WB.memRead_data <= OTTER_MEMORY.MEM_DOUT2;
-            pipeline_reg.MEM_WB.rd_addr <= pipeline_reg.EX_MEM.rd_addr;
-            pipeline_reg.MEM_WB.rf_sel <= pipeline_reg.EX_MEM.rf_sel;
-            pipeline_reg.MEM_WB.regWrite <= pipeline_reg.EX_MEM.regWrite;
-        end
+        pipeline_reg.MEM_WB.PC_plus4 <= pipeline_reg.EX_MEM.PC + 4;
+        pipeline_reg.MEM_WB.ALU_result <= pipeline_reg.EX_MEM.ALU_result;
+        pipeline_reg.MEM_WB.memRead_data <= OTTER_MEMORY.MEM_DOUT2;
+        pipeline_reg.MEM_WB.rd_addr <= pipeline_reg.EX_MEM.rd_addr;
+        pipeline_reg.MEM_WB.rf_sel <= pipeline_reg.EX_MEM.rf_sel;
+        pipeline_reg.MEM_WB.regWrite <= pipeline_reg.EX_MEM.regWrite;
     end
 
     always_comb begin
@@ -286,9 +266,9 @@ module OTTER_MCU (
 // ************************************************************************************************
 // * HAZARD UNUT
 // ************************************************************************************************
-    Hazard_Unit hazard_unit (
-        .rs1_D          (pipeline_reg.IF_DE.IR[19:15]),
-        .rs2_D          (pipeline_reg.IF_DE.IR[24:20]),
+    HazardUnit HAZARD_UNIT (
+        .rs1_D          (pipeline_reg.IF_DE.rs1_addr),
+        .rs2_D          (pipeline_reg.IF_DE.rs2_addr),
         .rs1_E          (pipeline_reg.DE_EX.rs1_addr),
         .rs2_E          (pipeline_reg.DE_EX.rs2_addr),
         .rd_E           (pipeline_reg.DE_EX.rd_addr),
