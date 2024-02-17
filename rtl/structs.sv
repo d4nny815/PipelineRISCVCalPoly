@@ -51,12 +51,12 @@ typedef struct packed {
     logic regWrite;
 } MEM_WB_t;
 
-typedef struct packed {
-    IF_DE_t IF_DE;
-    DE_EX_t DE_EX;
-    EX_MEM_t EX_MEM;
-    MEM_WB_t MEM_WB;
-} Pipeline_Reg_t;
+//typedef struct packed {
+//    IF_DE_t IF_DE;
+//    DE_EX_t DE_EX;
+//    EX_MEM_t EX_MEM;
+//    MEM_WB_t MEM_WB;
+//} Pipeline_Reg_t;
 
 endpackage : structs
 
