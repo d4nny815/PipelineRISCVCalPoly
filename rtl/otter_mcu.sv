@@ -218,7 +218,7 @@ module OTTER_MCU (
         .alu_fun        (DE_EX.alu_fun),
         .srcA           (ALU_forward_muxA), 
         .srcB           (ALU_srcB), 
-        .result         (IOBUS_ADDR)
+        .result         ()
     );
     
 
@@ -242,6 +242,7 @@ module OTTER_MCU (
     end
     
     assign IOBUS_OUT = EX_MEM.write_data;
+    assign IOBUS_ADDR = EX_MEM.ALU_result;
 
 // ************************************************************************************************
 // * Write (Write Back) stage
