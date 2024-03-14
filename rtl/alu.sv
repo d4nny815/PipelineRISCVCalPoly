@@ -46,17 +46,17 @@ module ALU (
     
     always_comb begin
         case(ALU_FUN)
-            ADD: result = srcA + srcB;                   
-            SLL: result = srcA << srcB[4:0];             
-            SLT: result = $signed(srcA) < $signed(srcB); 
+            ADD:  result = srcA + srcB;                   
+            SLL:  result = srcA << srcB[4:0];             
+            SLT:  result = $signed(srcA) < $signed(srcB); 
             SLTU: result = srcA < srcB;                  
-            XOR: result = srcA ^ srcB;                    
-            SRL: result = srcA >> srcB[4:0];             
-            OR: result = srcA | srcB;                    
-            AND: result = srcA & srcB;                   
-            SUB: result = srcA - srcB;                   
-            LUI: result = srcB;                    
-            SRA: result = $signed(srcA) >>> srcB[4:0]; 
+            XOR:  result = srcA ^ srcB;                    
+            SRL:  result = srcA >> srcB[4:0];             
+            OR:   result = srcA | srcB;                    
+            AND:  result = srcA & srcB;                   
+            SUB:  result = srcA - srcB;                   
+            LUI:  result = srcB;                    
+            SRA:  result = $signed(srcA) >>> srcB[4:0]; 
             default: result = 32'hDEAD_BEEF;
         endcase
     end

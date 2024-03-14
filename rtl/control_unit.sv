@@ -30,18 +30,18 @@ module ControlUnit (
     assign OPCODE = opcode_t'(opcode); //- Cast input enum 
 
 
-    //- datatype for func3Symbols tied to values
-    typedef enum logic [2:0] {
-        //BRANCH labels
-        BEQ = 3'b000,
-        BNE = 3'b001,
-        BLT = 3'b100,
-        BGE = 3'b101,
-        BLTU = 3'b110,
-        BGEU = 3'b111
-    } func3_t;    
-    func3_t FUNC3; //- define variable of new opcode type
-    assign FUNC3 = func3_t'(func3); //- Cast input enum 
+//    //- datatype for func3Symbols tied to values
+//    typedef enum logic [2:0] {
+//        //BRANCH labels
+//        BEQ = 3'b000,
+//        BNE = 3'b001,
+//        BLT = 3'b100,
+//        BGE = 3'b101,
+//        BLTU = 3'b110,
+//        BGEU = 3'b111
+//    } func3_t;    
+//    func3_t FUNC3; //- define variable of new opcode type
+//    assign FUNC3 = func3_t'(func3); //- Cast input enum 
 
 
     always_comb begin
@@ -107,6 +107,12 @@ module ControlUnit (
             OP_RG3: begin
                 alu_fun = {func7, func3};
             end
+            default: begin
+                regWrite = 1'b1; memWrite = 1'b0; memRead2 = 1'b0; jump = 1'b0;
+                branch = 1'b0; alu_fun = 4'b0000; immed_sel = 3'b000; rf_wr_sel = 2'b11;
+                srcB_sel = 1'b0;
+            end
+                
 
         endcase
     end

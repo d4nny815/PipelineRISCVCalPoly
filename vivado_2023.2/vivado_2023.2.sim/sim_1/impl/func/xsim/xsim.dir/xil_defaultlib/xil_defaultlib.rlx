@@ -1,0 +1,6 @@
+0.7
+2020.2
+Oct 13 2023
+20:47:58
+C:/Users/D4nny/Documents/RISCV-Pipeline-FPGA/rtl/test_pipeline.sv,1710278892,systemVerilog,,,,test_pipeline,,uvm,,,,,,
+C:/Users/D4nny/Documents/RISCV-Pipeline-FPGA/vivado_2023.2/vivado_2023.2.sim/sim_1/impl/func/xsim/test_pipeline_func_impl.v,1710278678,verilog,,,,ALU;BranchCondGen;Memory;OTTER_MCU;OTTER_Wrapper;RegFile;glbl;reg_nb,,uvm,,,,,,

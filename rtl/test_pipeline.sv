@@ -21,28 +21,34 @@
 
 
 module test_pipeline();
-    reg clk, rst;
-    
-    OTTER_MCU my_otter (
-        .CLK        (clk),
-        .RESET      (rst),
-        .INTR       (1'b0),
-        .IOBUS_IN   (32'b0),
-        .IOBUS_OUT  (),
-        .IOBUS_ADDR (), 
-        .IOBUS_WR   () 
-    ); 
+    logic clk, rst;
+
+    logic [15:0] leds;
+    logic [4:0] btns;
+    logic [3:0] an;
+    OTTER_Wrapper DUT (
+        .clk        (clk),
+        .buttons    (btns),
+        .switches   (16'b0),
+        .leds       (leds),
+        .segs       (),
+        .an         (an)
+    );
+
+
+    assign btns[4] = rst;
+
     always begin
-    #10 clk = ~clk; 
+    #20 clk = ~clk; 
     end  
+
 
     initial begin
         clk = 0; rst = 0;
-        #5;
-        rst = 1'b1;
-        #6;
-        rst = 1'b0;
-        #600;
+//        # 100;
+//        rst = 0;
+
+        #1000;
         $finish;
     end
 

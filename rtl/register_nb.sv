@@ -29,12 +29,15 @@ module reg_nb #(parameter n=8) (
     output logic [n-1:0] data_out  
     ); 
 
-    
-    always_ff @(posedge clk) begin 
-        if (clr == 1)       // synch clr
+    always_ff @(posedge clk) begin
+        if (clr == 1'b1) begin
             data_out <= 0;
-        else if (ld == 0)   // synch load 
-            data_out <= data_in; 
-    end
+        end
+        else if (ld == 1'b0) begin
+            data_out <= data_in;
+        end
+    end 
+   
+
 endmodule
 

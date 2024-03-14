@@ -8,6 +8,7 @@ sv xil_defaultlib  \
 "../../../../../rtl/structs.sv" \
 "../../../../../rtl/otter_mcu.sv" \
 "../../../../../rtl/otter_memory.sv" \
+"../../../../../rtl/otter_wrapper.sv" \
 "../../../../../rtl/reg_file.sv" \
 "../../../../../rtl/register_nb.sv" \
 "../../../../../rtl/test_pipeline.sv" \

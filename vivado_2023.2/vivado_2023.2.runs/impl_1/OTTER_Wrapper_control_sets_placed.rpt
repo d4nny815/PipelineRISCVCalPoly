@@ -1,0 +1,90 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
+| Date         : Wed Mar 13 22:16:45 2024
+| Host         : RaijinPC running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file OTTER_Wrapper_control_sets_placed.rpt
+| Design       : OTTER_Wrapper
+| Device       : xc7a35t
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |    12 |
+|    Minimum number of control sets                        |    12 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |    30 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |    12 |
+| >= 0 to < 4        |     1 |
+| >= 4 to < 6        |     2 |
+| >= 6 to < 8        |     0 |
+| >= 8 to < 10       |     2 |
+| >= 10 to < 12      |     1 |
+| >= 12 to < 14      |     0 |
+| >= 14 to < 16      |     0 |
+| >= 16              |     6 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |              12 |            5 |
+| No           | No                    | Yes                    |               0 |            0 |
+| No           | Yes                   | No                     |             314 |          118 |
+| Yes          | No                    | No                     |              65 |           27 |
+| Yes          | No                    | Yes                    |               0 |            0 |
+| Yes          | Yes                   | No                     |             107 |           61 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++-----------------+-----------------------------------------+--------------------------------------------+------------------+----------------+--------------+
+|   Clock Signal  |              Enable Signal              |              Set/Reset Signal              | Slice Load Count | Bel Load Count | Bels / Slice |
++-----------------+-----------------------------------------+--------------------------------------------+------------------+----------------+--------------+
+|  clk_IBUF_BUFG  |                                         |                                            |                2 |              3 |         1.50 |
+|  clk_IBUF_BUFG  | my_otter/E[0]                           |                                            |                1 |              4 |         4.00 |
+| ~CLK_50MHz_BUFG | my_otter/EX_MEM_reg[memRead]_0          |                                            |                2 |              5 |         2.50 |
+|  clk_IBUF_BUFG  | my_otter/EX_MEM_reg[ALU_result][3]_0[0] |                                            |                4 |              8 |         2.00 |
+| ~CLK_50MHz_BUFG |                                         |                                            |                3 |              9 |         3.00 |
+| ~CLK_50MHz_BUFG | my_otter/EX_MEM_reg[memRead]_0          | my_otter/OTTER_MEMORY/ioBuffer[15]_i_1_n_0 |                5 |             11 |         2.20 |
+|  clk_IBUF_BUFG  | my_otter/EX_MEM_reg[ALU_result][3]_1[0] |                                            |               12 |             16 |         1.33 |
+|  CLK_50MHz_BUFG | my_otter/OTTER_REG_FILE/stall_D         | my_otter/PROGRAM_COUNTER/SR[0]             |                9 |             32 |         3.56 |
+| ~CLK_50MHz_BUFG | MEM_WB_reg[memRead_data][31]_i_13_n_0   |                                            |                8 |             32 |         4.00 |
+|  CLK_50MHz_BUFG | my_otter/OTTER_REG_FILE/stall_D         | my_otter/OTTER_REG_FILE/SR[0]              |               47 |             64 |         1.36 |
+|  CLK_50MHz_BUFG |                                         | my_otter/OTTER_REG_FILE/flush_E            |               37 |            101 |         2.73 |
+|  CLK_50MHz_BUFG |                                         | my_otter/PROGRAM_COUNTER/SR[0]             |               81 |            213 |         2.63 |
++-----------------+-----------------------------------------+--------------------------------------------+------------------+----------------+--------------+
+
+

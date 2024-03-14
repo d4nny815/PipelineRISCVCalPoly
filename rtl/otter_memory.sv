@@ -81,7 +81,7 @@
     //                || MEM_ADDR1[1:0] != 2'b0 || MEM_ADDR2[1:0] !=2'b0)? 1 : 0;
             
     // buffer the IO input for reading
-    always_ff @(posedge MEM_CLK) begin
+    always_ff @(negedge MEM_CLK) begin
         if(MEM_RDEN2)
             ioBuffer <= IO_IN;
     end

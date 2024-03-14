@@ -1,6 +1,6 @@
 package structs;
 
-parameter DATAWIDTH = 32;
+localparam DATAWIDTH = 32;
 
 typedef struct packed {
     logic [DATAWIDTH - 1:0] PC;
