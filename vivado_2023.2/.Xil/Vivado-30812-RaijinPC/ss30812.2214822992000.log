@@ -1,0 +1,23 @@
+srcscan starts
+srcscan exits with return value 0
+iles for SV std libs ===========
+INFO: The Verilog library search path for library "std" is now "C:/Xilinx/Vivado/2023.2/data/precomp_hsv/sv/std" (VERI-1509)
+INFO: The Verilog library search path for library "uvm" is now "C:/Xilinx/Vivado/2023.2/data/precomp_hsv/sv/uvm" (VERI-1509)
+INFO: analyzing module BranchCondGen (VERI-9002)
+INFO: analyzing module CacheLineAdapter (VERI-9002)
+INFO: analyzing module DataL1 (VERI-9002)
+INFO: analyzing module InstrL1 (VERI-9002)
+INFO: analyzing module MainMemory (VERI-9002)
+INFO: analyzing module Memory (VERI-9002)
+INFO: analyzing module ALU (VERI-9002)
+INFO: analyzing module CacheController (VERI-9002)
+INFO: analyzing module ControlUnit (VERI-9002)
+INFO: analyzing module HazardUnit (VERI-9002)
+INFO: analyzing module ImmedGen (VERI-9002)
+INFO: analyzing module p_structs (VERI-9002)
+INFO: analyzing module OTTER_MCU (VERI-9002)
+INFO: analyzing module RegFile (VERI-9002)
+INFO: analyzing module reg_nb (VERI-9002)
+INFO: analyzing module OTTER_Wrapper (VERI-9002)
+INFO: analyzing module clk_2n_div (VERI-9002)
+srcscan exits with return value 0

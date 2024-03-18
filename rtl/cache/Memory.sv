@@ -1,6 +1,12 @@
 // Memory Wrapper
 
+// * THIS a 2 level memory system
+// * The first level is a cache memory that is used to store the instructions and data
+// * THE L1s are 2-way set associative caches with 32 lines per set and 8 words per line
+// * The second level is the main memory that is used to store the data
+
 /*
+
     instaniate MainMemory
     Memory myMemory (
         .MEM_CLK        (),
@@ -58,17 +64,18 @@ module Memory #(
     logic [31:0] mm_data;
 
     // Control signals
-    logic clr, imem_we, dmem_we, cl_we, cl_next, mm_re, mm_we;
+    logic clr, imem_we, dmem_we, cl_we, cl_next, mm_re, mm_we, memValid2_control;
     logic [1:0] cl_sel;
 
-    logic mem_addr_valid1, mem_addr_valid2;
+    logic mem_addr_valid1, mem_addr_valid2, mem_map_io;
 
 
     always_comb begin
         mem_addr_valid1 = MEM_ADDR1 < (16'h6000 >> 2);
-        if (!mem_addr_valid1) $error("MW: Invalid Instruction access memory address %x", {MEM_ADDR1, 2'b0});
-        mem_addr_valid2 = MEM_ADDR2 >= (16'h6000 >> 2) && MEM_ADDR2 < (17'h1_0000);
-        if (!mem_addr_valid2) $error("MW: Invalid Data access memory address %x", {MEM_ADDR2, 2'b0});
+        if (!mem_addr_valid1 & MEM_RDEN1) $error("MW: Invalid Instruction access memory address %x", {MEM_ADDR1, 2'b0});
+        mem_addr_valid2 = MEM_ADDR2 >= (16'h6000 >> 2);
+        if (!mem_addr_valid2 & (MEM_RDEN2 | MEM_WE2)) $error("MW: Invalid Data access memory address %x", {MEM_ADDR2, 2'b0});
+        mem_map_io = MEM_ADDR2 >= (17'h1_0000);
     end
 
     InstrL1 #(
@@ -164,7 +171,7 @@ module Memory #(
         .mem_valid_mm   (mm_mem_valid),
         .clr            (clr),
         .memValid1      (memValid1),
-        .memValid2      (memValid2),
+        .memValid2      (memValid2_control),
         .sel_cl         (cl_sel),
         .we_imem        (imem_we),
         .we_dmem        (dmem_we),
@@ -175,7 +182,7 @@ module Memory #(
     );
 
     always_comb begin
-        if (MEM_ADDR2 >= (17'h1_0000)) begin // MEM MAPPED IO
+        if (mem_map_io) begin // MEM MAPPED IO
             IO_WR = MEM_WE2;
             MEM_DOUT2 = MEM_RDEN2 ? IO_IN : 32'hdead_beef;
         end
@@ -184,6 +191,7 @@ module Memory #(
             MEM_DOUT2 = memValid2 & mem_addr_valid2 ? data_buffer : 32'hdead_beef;
         end
         MEM_DOUT1 = memValid1 & mem_addr_valid1 ? instr_buffer : 32'hdead_beef;
+        memValid2 = (MEM_WE2 | MEM_RDEN2) & ~mem_map_io ? memValid2_control : 1'b1;
     end
 
 endmodule

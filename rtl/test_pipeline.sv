@@ -38,13 +38,11 @@ module test_pipeline();
         .an         (an)
     );
 
-
     assign btns[4] = rst;
 
     always begin
     #5 clk = ~clk; 
     end  
-
 
     initial begin
         clk = 0; rst = 0;

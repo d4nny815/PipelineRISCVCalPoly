@@ -39,7 +39,9 @@ module OTTER_MCU (
     logic [DATAWIDTH - 1:0] rf_write_data;
 
     // HAZARD SIGNALS
-    logic stall_F, stall_D, flush_F, flush_E, flush_D, flush_M, flush_W;
+    logic stall_F, stall_D, stall_E, stall_M, stall_W, 
+        flush_F, flush_E, flush_D, flush_M, flush_W, 
+        memValid1, memValid2;
     logic [1:0] forwardA_E, forwardB_E;
 
 // *********************************************************************************
@@ -61,8 +63,25 @@ module OTTER_MCU (
         .data_out       (PC)
     );
 
+//    Memory OTTER_MEMORY (
+//        .MEM_CLK        (CLK),
+//        .MEM_RDEN1      (1'b1),             // ! hardcoded for now  
+//        .MEM_RDEN2      (EX_MEM.memRead),    
+//        .MEM_WE2        (EX_MEM.memWrite),
+//        .MEM_ADDR1      (PC[15:2]),
+//        .MEM_ADDR2      (EX_MEM.ALU_result),
+//        .MEM_DIN2       (EX_MEM.write_data),  
+//        .MEM_SIZE       (EX_MEM.memRead_size),
+//        .MEM_SIGN       (EX_MEM.memRead_sign),
+//        .IO_IN          (IOBUS_IN),
+//        .IO_WR          (IOBUS_WR),
+//        .MEM_DOUT1      (IR),
+//        .MEM_DOUT2      (memRead_data)  
+//    );
+
     Memory OTTER_MEMORY (
         .MEM_CLK        (CLK),
+        .RST            (RESET),
         .MEM_RDEN1      (1'b1),             // ! hardcoded for now  
         .MEM_RDEN2      (EX_MEM.memRead),    
         .MEM_WE2        (EX_MEM.memWrite),
@@ -74,7 +93,9 @@ module OTTER_MCU (
         .IO_IN          (IOBUS_IN),
         .IO_WR          (IOBUS_WR),
         .MEM_DOUT1      (IR),
-        .MEM_DOUT2      (memRead_data)  
+        .MEM_DOUT2      (memRead_data),
+        .memValid1      (memValid1),
+        .memValid2      (memValid2)  
     );
     
 
@@ -155,7 +176,7 @@ module OTTER_MCU (
             DE_EX.rs2_addr <= 0;
             DE_EX.rd_addr <= 0;
         end
-        else begin
+        else if (stall_E == 1'b0) begin
             DE_EX.PC <= IF_DE.PC;
             DE_EX.IR <= IF_DE.IR;
             DE_EX.regWrite <= regWrite;
@@ -246,7 +267,7 @@ module OTTER_MCU (
             EX_MEM.memRead_size <= 0;
             EX_MEM.memRead_sign <= 0;
         end
-        else begin
+        else if (stall_M == 1'b0) begin
             EX_MEM.PC           <= DE_EX.PC;
             EX_MEM.ALU_result   <= alu_result;
             EX_MEM.write_data   <= ALU_forward_muxB;
@@ -277,7 +298,7 @@ module OTTER_MCU (
             MEM_WB.rf_sel       <= 0;
             MEM_WB.regWrite     <= 0;
         end
-        else begin
+        else if (stall_W == 1'b0) begin
             MEM_WB.PC_plus4     <= EX_MEM.PC + 4;
             MEM_WB.ALU_result   <= EX_MEM.ALU_result;
             MEM_WB.memRead_data <= memRead_data;
@@ -312,10 +333,15 @@ module OTTER_MCU (
         .rf_wr_sel_E    (DE_EX.rf_sel),
         .regWrite_M     (EX_MEM.regWrite),
         .regWrite_W     (MEM_WB.regWrite),
+        .memValid1      (memValid1),
+        .memValid2      (memValid2),
         .forwardA_E     (forwardA_E),
         .forwardB_E     (forwardB_E),
         .stall_F        (stall_F),
         .stall_D        (stall_D),
+        .stall_E        (stall_E),
+        .stall_M        (stall_M),
+        .stall_W        (stall_W),
         .flush_F        (flush_F),
         .flush_D        (flush_D),
         .flush_E        (flush_E),

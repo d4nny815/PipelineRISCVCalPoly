@@ -3,10 +3,10 @@
 # SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
 # IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
 # SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
-# Start of session at: Mon Mar 18 12:32:18 2024
-# Process ID: 30812
+# Start of session at: Mon Mar 18 12:58:19 2024
+# Process ID: 14644
 # Current directory: C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/vivado_2023.2
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent27504 C:\Users\D4nny\Documents\HDL\PipelineRISCVCalPoly\vivado_2023.2\vivado_2023.2.xpr
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent14452 C:\Users\D4nny\Documents\HDL\PipelineRISCVCalPoly\vivado_2023.2\vivado_2023.2.xpr
 # Log file: C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/vivado_2023.2/vivado.log
 # Journal file: C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/vivado_2023.2\vivado.jou
 # Running On: RaijinPC, OS: Windows, CPU Frequency: 4200 MHz, CPU Physical cores: 32, Host memory: 33457 MB
@@ -17,24 +17,41 @@ update_compile_order -fileset sources_1
 launch_simulation
 open_wave_config C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/vivado_2023.2/test_pipeline_behav.wcfg
 source test_pipeline.tcl
+run 1 ms
+relaunch_sim
+relaunch_sim
+save_wave_config {C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/vivado_2023.2/test_pipeline_behav.wcfg}
+run 1 ms
+save_wave_config {C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/vivado_2023.2/test_pipeline_behav.wcfg}
+relaunch_sim
+run 1 ms
+save_wave_config {C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/vivado_2023.2/test_pipeline_behav.wcfg}
+save_wave_config {C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/vivado_2023.2/test_pipeline_behav.wcfg}
+relaunch_sim
+run 1 us
+relaunch_sim
+run 1 us
+relaunch_sim
+save_wave_config {C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/vivado_2023.2/test_pipeline_behav.wcfg}
 close_sim
 launch_simulation
 open_wave_config C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/vivado_2023.2/test_pipeline_behav.wcfg
 source test_pipeline.tcl
 save_wave_config {C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/vivado_2023.2/test_pipeline_behav.wcfg}
+run 1 us
 save_wave_config {C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/vivado_2023.2/test_pipeline_behav.wcfg}
 relaunch_sim
-relaunch_sim
-relaunch_sim
+run 1 us
+run 1 us
+run 1 ms
+run 1 ms
+save_wave_config {C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/vivado_2023.2/test_pipeline_behav.wcfg}
 save_wave_config {C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/vivado_2023.2/test_pipeline_behav.wcfg}
 relaunch_sim
 run 1 ms
-run 1 ms
+save_wave_config {C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/vivado_2023.2/test_pipeline_behav.wcfg}
 relaunch_sim
 run 1 ms
-run 1 ms
-relaunch_sim
-run 1 ms
-relaunch_sim
-run 1 ms
-run 1 ms
+run 1 us
+save_wave_config {C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/vivado_2023.2/test_pipeline_behav.wcfg}
+close_sim

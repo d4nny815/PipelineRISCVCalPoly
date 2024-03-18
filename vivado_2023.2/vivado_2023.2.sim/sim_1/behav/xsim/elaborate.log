@@ -14,6 +14,11 @@ Completed simulation data flow analysis
 Time Resolution for simulation is 1ps
 Compiling package xil_defaultlib.structs
 Compiling module xil_defaultlib.reg_nb(n=32)
+Compiling module xil_defaultlib.InstrL1_default
+Compiling module xil_defaultlib.DataL1_default
+Compiling module xil_defaultlib.CacheLineAdapter_default
+Compiling module xil_defaultlib.MainMemory(DELAY_BITS=3)
+Compiling module xil_defaultlib.CacheController
 Compiling module xil_defaultlib.Memory
 Compiling module xil_defaultlib.ControlUnit
 Compiling module xil_defaultlib.ImmedGen

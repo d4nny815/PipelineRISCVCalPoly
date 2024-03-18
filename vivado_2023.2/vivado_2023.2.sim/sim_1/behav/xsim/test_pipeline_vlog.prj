@@ -1,13 +1,18 @@
 # compile verilog/system verilog design source files
 sv xil_defaultlib  \
 "../../../../../rtl/Branch_cond_gen.sv" \
+"../../../../../rtl/cache/CacheLineAdapter.sv" \
+"../../../../../rtl/cache/DataL1.sv" \
+"../../../../../rtl/cache/InstructionL1.sv" \
+"../../../../../rtl/cache/MainMemory.sv" \
+"../../../../../rtl/cache/Memory.sv" \
 "../../../../../rtl/alu.sv" \
+"../../../../../rtl/cache/cacheController.sv" \
 "../../../../../rtl/control_unit.sv" \
 "../../../../../rtl/hazard.sv" \
 "../../../../../rtl/immed_gen.sv" \
 "../../../../../rtl/structs.sv" \
 "../../../../../rtl/otter_mcu.sv" \
-"../../../../../rtl/otter_memory.sv" \
 "../../../../../rtl/otter_wrapper.sv" \
 "../../../../../rtl/reg_file.sv" \
 "../../../../../rtl/register_nb.sv" \

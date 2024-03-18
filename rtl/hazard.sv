@@ -13,10 +13,15 @@ module HazardUnit (
     input regWrite_W,
     input pcSource_E,
     input [1:0] rf_wr_sel_E,
+    input memValid1,
+    input memValid2,
     output logic [1:0] forwardA_E,
     output logic [1:0] forwardB_E,
     output logic stall_F,
     output logic stall_D,
+    output logic stall_E,
+    output logic stall_M,
+    output logic stall_W,
     output logic flush_F,
     output logic flush_D,
     output logic flush_E,
@@ -59,13 +64,16 @@ module HazardUnit (
 
     always_comb begin
         load = ((rf_wr_sel_E == MEM_READ_DATA) & ((rs1_D == rd_E) | (rs2_D == rd_E)));
-        stall_F = load;
-        stall_D = load;
+        stall_F = load | (~memValid1 | ~memValid2);
+        stall_D = load | ~memValid1 | ~memValid2;
         flush_E = load | pcSource_E | reset;
         flush_D = pcSource_E | reset;
     end
 
     always_comb begin
+        stall_E = ~memValid1 | ~memValid2;
+        stall_M = ~memValid1 | ~memValid2;
+        stall_W = ~memValid1 | ~memValid2;
         flush_F = reset;
         flush_M = reset;
         flush_W = reset;

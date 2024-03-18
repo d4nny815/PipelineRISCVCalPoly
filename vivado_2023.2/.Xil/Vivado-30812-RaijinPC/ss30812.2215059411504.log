@@ -1,0 +1,36 @@
+srcscan starts
+=============== Using precompiled files for SV std libs ===========
+INFO: The Verilog library search path for library "std" is now "C:/Xilinx/Vivado/2023.2/data/precomp_hsv/sv/std" (VERI-1509)
+INFO: The Verilog library search path for library "uvm" is now "C:/Xilinx/Vivado/2023.2/data/precomp_hsv/sv/uvm" (VERI-1509)
+INFO: analyzing module BranchCondGen (VERI-9002)
+INFO: analyzing module CacheLineAdapter (VERI-9002)
+INFO: analyzing module DataL1 (VERI-9002)
+INFO: analyzing module InstrL1 (VERI-9002)
+INFO: analyzing module MainMemory (VERI-9002)
+INFO: analyzing module Memory (VERI-9002)
+INFO: analyzing module ALU (VERI-9002)
+INFO: analyzing module CacheController (VERI-9002)
+INFO: analyzing module clk_2n_div (VERI-9002)
+INFO: analyzing module ControlUnit (VERI-9002)
+INFO: analyzing module HazardUnit (VERI-9002)
+INFO: analyzing module ImmedGen (VERI-9002)
+INFO: analyzing module p_structs (VERI-9002)
+INFO: analyzing module OTTER_MCU (VERI-9002)
+INFO: analyzing module OTTER_Wrapper (VERI-9002)
+INFO: analyzing module RegFile (VERI-9002)
+INFO: analyzing module reg_nb (VERI-9002)
+Listing tops:
+VeriTop library:xil_defaultlib mod:Memory
+VeriTop library:xil_defaultlib mod:clk_2n_div
+VeriTop library:xil_defaultlib mod:OTTER_Wrapper
+VeriTop library:xil_defaultlib mod:p_structs
+END of tops
+C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/rtl/cache/Memory.sv(23): INFO: compiling module 'Memory_default' (VERI-1018)
+C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/rtl/cache/clk_div.sv(1): INFO: compiling module 'clk_2n_div_default' (VERI-1018)
+C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/rtl/otter_wrapper.sv(2): INFO: compiling module 'OTTER_Wrapper_default' (VERI-1018)
+C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/rtl/structs.sv(63): INFO: compiling module 'p_structs_default' (VERI-1018)
+ModName: MainMemory(DELAY_BITS=3)
+ModName: reg_nb(n=32)
+BaseName MainMemory has 1 entries
+BaseName reg_nb has 1 entries
+srcscan exits with return value 0
