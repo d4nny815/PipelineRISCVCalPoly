@@ -26,6 +26,9 @@ module test_pipeline();
     logic [15:0] leds;
     logic [4:0] btns;
     logic [3:0] an;
+
+    default clocking tb_clk @(posedge clk); endclocking
+
     OTTER_Wrapper DUT (
         .clk        (clk),
         .buttons    (btns),
@@ -39,16 +42,15 @@ module test_pipeline();
     assign btns[4] = rst;
 
     always begin
-    #20 clk = ~clk; 
+    #5 clk = ~clk; 
     end  
 
 
     initial begin
         clk = 0; rst = 0;
-//        # 100;
-//        rst = 0;
+        @(posedge clk iff DUT.my_otter.DE_EX.PC == 32'h01ec);
 
-        #1000;
+        $display("Passed Testall");
         $finish;
     end
 

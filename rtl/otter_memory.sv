@@ -104,13 +104,13 @@
 			//default: memory[wordAddr2] <= 32'b0  // unsupported size, byte offset combination
 			// removed to avoid mistakes causing memory to be zeroed.
         endcase
-        end
         // read all data synchronously required for BRAM
-        if(MEM_RDEN1)                       // need EN for extra load cycle to not change instruction
-            MEM_DOUT1 <= memory[MEM_ADDR1];
-
         if(MEM_RDEN2)                         // Read word from memory
             memReadWord <= memory[wordAddr2];
+        end
+        
+        if(MEM_RDEN1)                       // need EN for extra load cycle to not change instruction
+            MEM_DOUT1 <= memory[MEM_ADDR1];
     end
        
     // Change the data word into sized bytes and sign extend 

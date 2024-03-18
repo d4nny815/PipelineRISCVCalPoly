@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
-| Date         : Wed Mar 13 22:17:05 2024
+| Date         : Wed Mar 13 23:53:33 2024
 | Host         : RaijinPC running 64-bit major release  (build 9200)
 | Command      : report_methodology -file OTTER_Wrapper_methodology_drc_routed.rpt -pb OTTER_Wrapper_methodology_drc_routed.pb -rpx OTTER_Wrapper_methodology_drc_routed.rpx
 | Design       : OTTER_Wrapper
@@ -27,8 +27,8 @@ Table of Contents
 +-----------+------------------+-------------------------------+------------+
 | Rule      | Severity         | Description                   | Violations |
 +-----------+------------------+-------------------------------+------------+
-| TIMING-17 | Critical Warning | Non-clocked sequential cell   | 503        |
-| TIMING-18 | Warning          | Missing input or output delay | 33         |
+| TIMING-17 | Critical Warning | Non-clocked sequential cell   | 531        |
+| TIMING-18 | Warning          | Missing input or output delay | 5          |
 +-----------+------------------+-------------------------------+------------+
 
 2. REPORT DETAILS
@@ -2548,6 +2548,146 @@ Non-clocked sequential cell
 The clock pin my_otter/PROGRAM_COUNTER/data_out_reg[9]/C is not reached by a timing clock
 Related violations: <none>
 
+TIMING-17#504 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_an_reg[0]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#505 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_an_reg[1]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#506 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_an_reg[2]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#507 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_an_reg[3]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#508 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_leds_reg[0]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#509 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_leds_reg[10]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#510 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_leds_reg[11]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#511 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_leds_reg[12]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#512 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_leds_reg[13]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#513 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_leds_reg[14]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#514 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_leds_reg[15]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#515 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_leds_reg[1]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#516 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_leds_reg[2]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#517 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_leds_reg[3]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#518 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_leds_reg[4]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#519 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_leds_reg[5]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#520 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_leds_reg[6]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#521 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_leds_reg[7]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#522 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_leds_reg[8]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#523 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_leds_reg[9]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#524 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_segs_reg[0]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#525 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_segs_reg[1]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#526 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_segs_reg[2]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#527 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_segs_reg[3]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#528 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_segs_reg[4]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#529 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_segs_reg[5]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#530 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_segs_reg[6]/C is not reached by a timing clock
+Related violations: <none>
+
+TIMING-17#531 Critical Warning
+Non-clocked sequential cell  
+The clock pin r_segs_reg[7]/C is not reached by a timing clock
+Related violations: <none>
+
 TIMING-18#1 Warning
 Missing input or output delay  
 An input delay is missing on buttons[0] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
@@ -2571,146 +2711,6 @@ Related violations: <none>
 TIMING-18#5 Warning
 Missing input or output delay  
 An input delay is missing on buttons[4] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#6 Warning
-Missing input or output delay  
-An output delay is missing on an[0] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#7 Warning
-Missing input or output delay  
-An output delay is missing on an[1] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#8 Warning
-Missing input or output delay  
-An output delay is missing on an[2] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#9 Warning
-Missing input or output delay  
-An output delay is missing on an[3] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#10 Warning
-Missing input or output delay  
-An output delay is missing on leds[0] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#11 Warning
-Missing input or output delay  
-An output delay is missing on leds[10] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#12 Warning
-Missing input or output delay  
-An output delay is missing on leds[11] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#13 Warning
-Missing input or output delay  
-An output delay is missing on leds[12] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#14 Warning
-Missing input or output delay  
-An output delay is missing on leds[13] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#15 Warning
-Missing input or output delay  
-An output delay is missing on leds[14] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#16 Warning
-Missing input or output delay  
-An output delay is missing on leds[15] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#17 Warning
-Missing input or output delay  
-An output delay is missing on leds[1] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#18 Warning
-Missing input or output delay  
-An output delay is missing on leds[2] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#19 Warning
-Missing input or output delay  
-An output delay is missing on leds[3] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#20 Warning
-Missing input or output delay  
-An output delay is missing on leds[4] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#21 Warning
-Missing input or output delay  
-An output delay is missing on leds[5] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#22 Warning
-Missing input or output delay  
-An output delay is missing on leds[6] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#23 Warning
-Missing input or output delay  
-An output delay is missing on leds[7] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#24 Warning
-Missing input or output delay  
-An output delay is missing on leds[8] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#25 Warning
-Missing input or output delay  
-An output delay is missing on leds[9] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#26 Warning
-Missing input or output delay  
-An output delay is missing on segs[0] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#27 Warning
-Missing input or output delay  
-An output delay is missing on segs[1] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#28 Warning
-Missing input or output delay  
-An output delay is missing on segs[2] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#29 Warning
-Missing input or output delay  
-An output delay is missing on segs[3] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#30 Warning
-Missing input or output delay  
-An output delay is missing on segs[4] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#31 Warning
-Missing input or output delay  
-An output delay is missing on segs[5] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#32 Warning
-Missing input or output delay  
-An output delay is missing on segs[6] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
-Related violations: <none>
-
-TIMING-18#33 Warning
-Missing input or output delay  
-An output delay is missing on segs[7] relative to the rising and/or falling clock edge(s) of sys_clk_pin.
 Related violations: <none>
 
 

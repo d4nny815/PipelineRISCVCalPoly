@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
-| Date         : Wed Mar 13 22:16:45 2024
+| Date         : Wed Mar 13 23:53:17 2024
 | Host         : RaijinPC running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file OTTER_Wrapper_control_sets_placed.rpt
 | Design       : OTTER_Wrapper
@@ -58,12 +58,12 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |              12 |            5 |
+| No           | No                    | No                     |              12 |           10 |
 | No           | No                    | Yes                    |               0 |            0 |
-| No           | Yes                   | No                     |             314 |          118 |
-| Yes          | No                    | No                     |              65 |           27 |
+| No           | Yes                   | No                     |             314 |          113 |
+| Yes          | No                    | No                     |              65 |           29 |
 | Yes          | No                    | Yes                    |               0 |            0 |
-| Yes          | Yes                   | No                     |             107 |           61 |
+| Yes          | Yes                   | No                     |             107 |           57 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
 
@@ -74,16 +74,16 @@ Table of Contents
 |   Clock Signal  |              Enable Signal              |              Set/Reset Signal              | Slice Load Count | Bel Load Count | Bels / Slice |
 +-----------------+-----------------------------------------+--------------------------------------------+------------------+----------------+--------------+
 |  clk_IBUF_BUFG  |                                         |                                            |                2 |              3 |         1.50 |
-|  clk_IBUF_BUFG  | my_otter/E[0]                           |                                            |                1 |              4 |         4.00 |
-| ~CLK_50MHz_BUFG | my_otter/EX_MEM_reg[memRead]_0          |                                            |                2 |              5 |         2.50 |
-|  clk_IBUF_BUFG  | my_otter/EX_MEM_reg[ALU_result][3]_0[0] |                                            |                4 |              8 |         2.00 |
-| ~CLK_50MHz_BUFG |                                         |                                            |                3 |              9 |         3.00 |
-| ~CLK_50MHz_BUFG | my_otter/EX_MEM_reg[memRead]_0          | my_otter/OTTER_MEMORY/ioBuffer[15]_i_1_n_0 |                5 |             11 |         2.20 |
-|  clk_IBUF_BUFG  | my_otter/EX_MEM_reg[ALU_result][3]_1[0] |                                            |               12 |             16 |         1.33 |
+|  CLK_50MHz_BUFG | my_otter/E[0]                           |                                            |                1 |              4 |         4.00 |
+| ~CLK_50MHz_BUFG | my_otter/EX_MEM_reg[memRead_n_0_]       |                                            |                2 |              5 |         2.50 |
+|  CLK_50MHz_BUFG | my_otter/EX_MEM_reg[ALU_result][3]_0[0] |                                            |                4 |              8 |         2.00 |
+| ~CLK_50MHz_BUFG |                                         |                                            |                8 |              9 |         1.12 |
+| ~CLK_50MHz_BUFG | my_otter/EX_MEM_reg[memRead_n_0_]       | my_otter/OTTER_MEMORY/ioBuffer[15]_i_1_n_0 |                6 |             11 |         1.83 |
+|  CLK_50MHz_BUFG | my_otter/EX_MEM_reg[ALU_result][3]_1[0] |                                            |               11 |             16 |         1.45 |
 |  CLK_50MHz_BUFG | my_otter/OTTER_REG_FILE/stall_D         | my_otter/PROGRAM_COUNTER/SR[0]             |                9 |             32 |         3.56 |
-| ~CLK_50MHz_BUFG | MEM_WB_reg[memRead_data][31]_i_13_n_0   |                                            |                8 |             32 |         4.00 |
-|  CLK_50MHz_BUFG | my_otter/OTTER_REG_FILE/stall_D         | my_otter/OTTER_REG_FILE/SR[0]              |               47 |             64 |         1.36 |
-|  CLK_50MHz_BUFG |                                         | my_otter/OTTER_REG_FILE/flush_E            |               37 |            101 |         2.73 |
+| ~CLK_50MHz_BUFG | MEM_WB_reg[memRead_data][31]_i_13_n_0   |                                            |               11 |             32 |         2.91 |
+|  CLK_50MHz_BUFG | my_otter/OTTER_REG_FILE/stall_D         | my_otter/OTTER_REG_FILE/SR[0]              |               42 |             64 |         1.52 |
+|  CLK_50MHz_BUFG |                                         | my_otter/OTTER_REG_FILE/flush_E            |               32 |            101 |         3.16 |
 |  CLK_50MHz_BUFG |                                         | my_otter/PROGRAM_COUNTER/SR[0]             |               81 |            213 |         2.63 |
 +-----------------+-----------------------------------------+--------------------------------------------+------------------+----------------+--------------+
 

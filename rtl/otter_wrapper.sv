@@ -4,7 +4,7 @@
     input [4:0] buttons,  
     input [15:0] switches,   
     output logic [15:0] leds,
-    output logic [7:0] segs,   
+    output logic [7:0] segs,    
     output logic [3:0] an    
     ); 
          
@@ -18,11 +18,10 @@
     localparam ANODES_PORT_ADDR       = 32'h1100C008;  // 0x1100C008
      
     //- Signals for connecting OTTER_MCU to OTTER_wrapper 
-    logic s_interrupt;  
+//    logic s_interrupt;  
     logic s_reset; 
     logic reset;
-//    logic CLK_50MHz;           
-    logic CLK_50MHz = 0;           
+    logic CLK_50MHz = 0;            
     logic [31:0] IOBUS_out; 
     logic [31:0] IOBUS_in;   
     logic [31:0] IOBUS_addr;  
@@ -34,26 +33,26 @@
     logic [3:0]  r_an;     //  register for display enables (anodes)
    
     
-    assign s_interrupt = buttons[3];  // for btn(4) connecting to interrupt. Bottom button
+//    assign s_interrupt = buttons[3];  // for btn(4) connecting to interrupt. Bottom button
     assign s_reset = buttons[4];      // for btn(3) connecting to reset
 
     //- Instantiate RISC-V OTTER MCU 
-    OTTER_MCU my_otter(
+    OTTER_MCU my_otter( 
         .CLK        (CLK_50MHz),
         .INTR       (1'b0),
         .RESET      (s_reset | reset), 
         .IOBUS_IN   (IOBUS_in),  
-        .IOBUS_OUT  (IOBUS_out),  
-        .IOBUS_ADDR (IOBUS_addr),
+        .IOBUS_OUT  (IOBUS_out),    
+        .IOBUS_ADDR (IOBUS_addr),  
         .IOBUS_WR   (IOBUS_wr)
-    );
-
+    ); 
+ 
     always_ff @(posedge clk) 
-        CLK_50MHz <= ~CLK_50MHz;
-      
+        CLK_50MHz <= ~CLK_50MHz; 
+       
    
     //- Drive dev board output devices with registers 
-    always_ff @ (posedge clk) begin
+    always_ff @ (posedge CLK_50MHz) begin
         if (IOBUS_wr == 1) begin 
             case(IOBUS_addr)
                 LEDS_PORT_ADDR:   r_leds <= IOBUS_out[15:0];    

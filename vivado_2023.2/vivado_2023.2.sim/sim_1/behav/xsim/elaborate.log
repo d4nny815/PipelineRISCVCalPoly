@@ -6,4 +6,23 @@ Using 2 slave threads.
 Starting static elaboration
 Pass Through NonSizing Optimizer
 Completed static elaboration
-INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel
+Starting simulation data flow analysis
+WARNING: [VRFC 10-2649] an enum variable may only be assigned the same enum typed variable or one of its values [C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/rtl/control_unit.sv:30]
+WARNING: [VRFC 10-2649] an enum variable may only be assigned the same enum typed variable or one of its values [C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/rtl/Branch_cond_gen.sv:46]
+WARNING: [VRFC 10-2649] an enum variable may only be assigned the same enum typed variable or one of its values [C:/Users/D4nny/Documents/HDL/PipelineRISCVCalPoly/rtl/alu.sv:44]
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package xil_defaultlib.structs
+Compiling module xil_defaultlib.reg_nb(n=32)
+Compiling module xil_defaultlib.Memory
+Compiling module xil_defaultlib.ControlUnit
+Compiling module xil_defaultlib.ImmedGen
+Compiling module xil_defaultlib.RegFile
+Compiling module xil_defaultlib.BranchCondGen
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.HazardUnit
+Compiling module xil_defaultlib.OTTER_MCU
+Compiling module xil_defaultlib.OTTER_Wrapper
+Compiling module xil_defaultlib.test_pipeline
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot test_pipeline_behav
