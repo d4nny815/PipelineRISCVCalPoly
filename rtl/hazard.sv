@@ -35,9 +35,9 @@ module HazardUnit (
         WB = 2'b10
     } ForwardReg_t;
 
-    parameter MEM_READ_DATA = 2'b10;
+    localparam MEM_READ_DATA = 2'b10;
     
-    logic load;
+    logic load, mem_available;
     always_comb begin
         if ((rs1_E == rd_M) && regWrite_M && (rs1_E != 0)) begin
             forwardA_E = MEM;
@@ -63,17 +63,18 @@ module HazardUnit (
     end
 
     always_comb begin
-        load = ((rf_wr_sel_E == MEM_READ_DATA) & ((rs1_D == rd_E) | (rs2_D == rd_E)));
-        stall_F = load | (~memValid1 | ~memValid2);
-        stall_D = load | ~memValid1 | ~memValid2;
+        mem_available = memValid1 & memValid2;
+        load = (rf_wr_sel_E == MEM_READ_DATA) & ((rs1_D == rd_E) | (rs2_D == rd_E));
+        stall_F = (load | ~mem_available) & ~pcSource_E;
+        stall_D = load | ~mem_available;
         flush_E = load | pcSource_E | reset;
         flush_D = pcSource_E | reset;
     end
 
     always_comb begin
-        stall_E = ~memValid1 | ~memValid2;
-        stall_M = ~memValid1 | ~memValid2;
-        stall_W = ~memValid1 | ~memValid2;
+        stall_E = ~mem_available;
+        stall_M = ~mem_available & ~pcSource_E;
+        stall_W = ~mem_available & ~pcSource_E;
         flush_F = reset;
         flush_M = reset;
         flush_W = reset;

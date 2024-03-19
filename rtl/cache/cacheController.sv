@@ -84,7 +84,11 @@ module CacheController (
             state <= next_state;
     end
 
+    logic dmem_access;
+
+
     always_comb begin
+        dmem_access = re_dmem | we_cpu_dmem;
         clr = 1'b0; memValid1 = 1'b0; memValid2 = 1'b0; sel_cl = 2'b0; 
         we_imem = 1'b0; we_dmem = 1'b0; we_cl = 1'b0; next_cl = 1'b0; re_mm = 1'b0; we_mm = 1'b0;
 
@@ -98,23 +102,23 @@ module CacheController (
                 memValid1 = hit_imem & re_imem;
                 memValid2 = hit_dmem & (re_dmem | we_cpu_dmem);
 
-                if (hit_imem && re_imem) begin
+                if (hit_imem && re_imem && ~dmem_access) begin
                     next_state = CHECK_L1;
                 end
                 else if (!hit_imem && re_imem) begin
                     next_state = FETCH_IMEM;
                 end
-                else if (hit_dmem && (re_dmem || we_cpu_dmem)) begin
+                else if (hit_dmem && dmem_access) begin
                     next_state = CHECK_L1;
                 end
-                else if (!hit_dmem && (re_dmem || we_cpu_dmem) && dirty_dmem) begin
+                else if (!hit_dmem && dmem_access && dirty_dmem) begin
                     next_state = WB_DMEM;
                 end
-                else if (!hit_dmem && (re_dmem || we_cpu_dmem) && !dirty_dmem) begin
+                else if (!hit_dmem && dmem_access && !dirty_dmem) begin
                     next_state = FETCH_DMEM;
                 end
                 else begin
-                    if (~(re_imem || re_dmem || we_cpu_dmem)) $display("CC: Invalid state %x, %x, %x", re_imem, re_dmem, we_cpu_dmem);
+                    // if (~(re_imem || re_dmem || we_cpu_dmem)) $display("CC: Invalid state %x, %x, %x", re_imem, re_dmem, we_cpu_dmem);
                     next_state = CHECK_L1;
                 end
             end

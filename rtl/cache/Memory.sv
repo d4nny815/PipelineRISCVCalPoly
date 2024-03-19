@@ -110,7 +110,7 @@ module Memory #(
     ) data_mem (
         .clk            (MEM_CLK),
         .reset          (clr),
-        .we             (cl_sel[1] ? 1'b0 : MEM_WE2),
+        .we             (cl_sel[0] ? 1'b0 : MEM_WE2),
         .we_cache       (dmem_we),
         .sign           (cl_sel[0] ? 1'b0 : MEM_SIGN),
         .size           (cl_sel[0] ? 2'b10 : MEM_SIZE),
@@ -188,10 +188,10 @@ module Memory #(
         end
         else begin
             IO_WR = 1'b0;
-            MEM_DOUT2 = memValid2 & mem_addr_valid2 ? data_buffer : 32'hdead_beef;
+            MEM_DOUT2 = memValid2_control & mem_addr_valid2 ? data_buffer : 32'hdead_beef;
         end
         MEM_DOUT1 = memValid1 & mem_addr_valid1 ? instr_buffer : 32'hdead_beef;
-        memValid2 = (MEM_WE2 | MEM_RDEN2) & ~mem_map_io ? memValid2_control : 1'b1;
+        memValid2 = (MEM_WE2 || MEM_RDEN2) && ~mem_map_io ? memValid2_control : 1'b1;
     end
 
 endmodule

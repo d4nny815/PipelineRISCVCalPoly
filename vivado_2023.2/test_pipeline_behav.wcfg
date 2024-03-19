@@ -12,18 +12,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="75,784.612 ns"></ZoomStartTime>
-      <ZoomEndTime time="75,977.078 ns"></ZoomEndTime>
-      <Cursor1Time time="75,896.040 ns"></Cursor1Time>
+      <ZoomStartTime time="1,726,777.234 ns"></ZoomStartTime>
+      <ZoomEndTime time="1,727,063.835 ns"></ZoomEndTime>
+      <Cursor1Time time="1,726,825.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="188"></NameColumnWidth>
+      <NameColumnWidth column_width="180"></NameColumnWidth>
       <ValueColumnWidth column_width="58"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="25" />
-   <wave_markers>
-      <marker time="4765000" label="" />
-   </wave_markers>
    <wvobject fp_name="/test_pipeline/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -279,6 +276,7 @@
    <wvobject fp_name="group622" type="group">
       <obj_property name="label">Memory SIgnals</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="/test_pipeline/DUT/my_otter/CLK" type="logic">
          <obj_property name="ElementShortName">CLK</obj_property>
          <obj_property name="ObjectShortName">CLK</obj_property>
@@ -335,6 +333,7 @@
    <wvobject fp_name="group633" type="group">
       <obj_property name="label">Writeback Signals</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="/test_pipeline/DUT/my_otter/CLK" type="logic">
          <obj_property name="ElementShortName">CLK</obj_property>
          <obj_property name="ObjectShortName">CLK</obj_property>
@@ -375,6 +374,7 @@
    <wvobject fp_name="group1621" type="group">
       <obj_property name="label">Hazard Unit Signals</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="/test_pipeline/DUT/my_otter/HAZARD_UNIT/reset" type="logic">
          <obj_property name="ElementShortName">reset</obj_property>
          <obj_property name="ObjectShortName">reset</obj_property>
@@ -508,6 +508,10 @@
          <obj_property name="ElementShortName">MEM_WE2</obj_property>
          <obj_property name="ObjectShortName">MEM_WE2</obj_property>
       </wvobject>
+      <wvobject fp_name="/test_pipeline/DUT/my_otter/OTTER_MEMORY/cache_controller/dmem_access" type="logic">
+         <obj_property name="ElementShortName">dmem_access</obj_property>
+         <obj_property name="ObjectShortName">dmem_access</obj_property>
+      </wvobject>
       <wvobject fp_name="/test_pipeline/DUT/my_otter/OTTER_MEMORY/MEM_ADDR1" type="array">
          <obj_property name="ElementShortName">MEM_ADDR1[13:0]</obj_property>
          <obj_property name="ObjectShortName">MEM_ADDR1[13:0]</obj_property>
@@ -543,6 +547,14 @@
       <wvobject fp_name="/test_pipeline/DUT/my_otter/OTTER_MEMORY/MEM_DOUT2" type="array">
          <obj_property name="ElementShortName">MEM_DOUT2[31:0]</obj_property>
          <obj_property name="ObjectShortName">MEM_DOUT2[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_pipeline/DUT/my_otter/OTTER_MEMORY/memValid1" type="logic">
+         <obj_property name="ElementShortName">memValid1</obj_property>
+         <obj_property name="ObjectShortName">memValid1</obj_property>
+      </wvobject>
+      <wvobject fp_name="/test_pipeline/DUT/my_otter/OTTER_MEMORY/memValid2" type="logic">
+         <obj_property name="ElementShortName">memValid2</obj_property>
+         <obj_property name="ObjectShortName">memValid2</obj_property>
       </wvobject>
       <wvobject fp_name="/test_pipeline/DUT/my_otter/OTTER_MEMORY/cache_controller/state" type="array">
          <obj_property name="ElementShortName">state[2:0]</obj_property>
@@ -671,6 +683,7 @@
       <wvobject fp_name="group303" type="group">
          <obj_property name="label">DMEM</obj_property>
          <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
          <wvobject fp_name="/test_pipeline/DUT/my_otter/OTTER_MEMORY/data_mem/clk" type="logic">
             <obj_property name="ElementShortName">clk</obj_property>
             <obj_property name="ObjectShortName">clk</obj_property>
@@ -770,6 +783,7 @@
          <wvobject fp_name="/test_pipeline/DUT/my_otter/OTTER_MEMORY/data_mem/set_index" type="array">
             <obj_property name="ElementShortName">set_index[4:0]</obj_property>
             <obj_property name="ObjectShortName">set_index[4:0]</obj_property>
+            <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
          </wvobject>
          <wvobject fp_name="/test_pipeline/DUT/my_otter/OTTER_MEMORY/data_mem/tag" type="array">
             <obj_property name="ElementShortName">tag[22:0]</obj_property>
@@ -786,42 +800,6 @@
          <wvobject fp_name="/test_pipeline/DUT/my_otter/OTTER_MEMORY/data_mem/hit1" type="logic">
             <obj_property name="ElementShortName">hit1</obj_property>
             <obj_property name="ObjectShortName">hit1</obj_property>
-         </wvobject>
-         <wvobject fp_name="/test_pipeline/DUT/my_otter/OTTER_MEMORY/data_mem/WORD_SIZE" type="array">
-            <obj_property name="ElementShortName">WORD_SIZE[31:0]</obj_property>
-            <obj_property name="ObjectShortName">WORD_SIZE[31:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/test_pipeline/DUT/my_otter/OTTER_MEMORY/data_mem/ADDR_SIZE" type="array">
-            <obj_property name="ElementShortName">ADDR_SIZE[31:0]</obj_property>
-            <obj_property name="ObjectShortName">ADDR_SIZE[31:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/test_pipeline/DUT/my_otter/OTTER_MEMORY/data_mem/LINES_PER_SET" type="array">
-            <obj_property name="ElementShortName">LINES_PER_SET[31:0]</obj_property>
-            <obj_property name="ObjectShortName">LINES_PER_SET[31:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/test_pipeline/DUT/my_otter/OTTER_MEMORY/data_mem/WORDS_PER_LINE" type="array">
-            <obj_property name="ElementShortName">WORDS_PER_LINE[31:0]</obj_property>
-            <obj_property name="ObjectShortName">WORDS_PER_LINE[31:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/test_pipeline/DUT/my_otter/OTTER_MEMORY/data_mem/BYTE_OFFSET_BITS" type="array">
-            <obj_property name="ElementShortName">BYTE_OFFSET_BITS[31:0]</obj_property>
-            <obj_property name="ObjectShortName">BYTE_OFFSET_BITS[31:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/test_pipeline/DUT/my_otter/OTTER_MEMORY/data_mem/SET_LINE_BITS" type="array">
-            <obj_property name="ElementShortName">SET_LINE_BITS[31:0]</obj_property>
-            <obj_property name="ObjectShortName">SET_LINE_BITS[31:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/test_pipeline/DUT/my_otter/OTTER_MEMORY/data_mem/WORD_OFFSET_BITS" type="array">
-            <obj_property name="ElementShortName">WORD_OFFSET_BITS[31:0]</obj_property>
-            <obj_property name="ObjectShortName">WORD_OFFSET_BITS[31:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/test_pipeline/DUT/my_otter/OTTER_MEMORY/data_mem/TAG_BITS" type="array">
-            <obj_property name="ElementShortName">TAG_BITS[31:0]</obj_property>
-            <obj_property name="ObjectShortName">TAG_BITS[31:0]</obj_property>
-         </wvobject>
-         <wvobject fp_name="/test_pipeline/DUT/my_otter/OTTER_MEMORY/data_mem/SET_SIZE" type="array">
-            <obj_property name="ElementShortName">SET_SIZE[31:0]</obj_property>
-            <obj_property name="ObjectShortName">SET_SIZE[31:0]</obj_property>
          </wvobject>
       </wvobject>
       <wvobject fp_name="group370" type="group">
@@ -962,7 +940,6 @@
          <wvobject fp_name="/test_pipeline/DUT/my_otter/OTTER_MEMORY/cache_line_adapter/line_buffer" type="array">
             <obj_property name="ElementShortName">line_buffer[7:0][31:0]</obj_property>
             <obj_property name="ObjectShortName">line_buffer[7:0][31:0]</obj_property>
-            <obj_property name="isExpanded"></obj_property>
          </wvobject>
       </wvobject>
       <wvobject fp_name="group372" type="group">

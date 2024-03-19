@@ -43,7 +43,7 @@ module DataL1 #(
     output logic dirty
     );
 
-
+    localparam BYTE_SIZE = 8;
     localparam BYTE_OFFSET_BITS = 2;
     localparam SET_LINE_BITS = $clog2(LINES_PER_SET);
     localparam WORD_OFFSET_BITS = $clog2(WORDS_PER_LINE);
@@ -158,16 +158,16 @@ module DataL1 #(
             else if (we) begin // write from CPU
                 if (hit0) begin
                     case (size)
-                        2'b00: set0[set_index][WORD_SIZE * word_offset +: WORD_SIZE / 4] <= data[WORD_SIZE / 2 - 1:0]; // byte
-                        2'b01: set0[set_index][WORD_SIZE * word_offset +: WORD_SIZE / 2] <= data[WORD_SIZE / 2 - 1:0]; // half word
+                        2'b00: set0[set_index][WORD_SIZE * word_offset + (BYTE_SIZE * byte_offset) +: WORD_SIZE / 4] <= data[WORD_SIZE / 2 - 1:0]; // byte
+                        2'b01: set0[set_index][WORD_SIZE * word_offset + (BYTE_SIZE * byte_offset) +: WORD_SIZE / 2] <= data[WORD_SIZE / 2 - 1:0]; // half word
                         2'b10: set0[set_index][WORD_SIZE * word_offset +: WORD_SIZE] <= data; // word
                     endcase
                     dirty0[set_index] <= 1;
                 end
                 else if (hit1) begin
                     case (size)
-                        2'b00: set1[set_index][WORD_SIZE * word_offset +: WORD_SIZE / 4] <= data[WORD_SIZE / 4 - 1:0]; // byte
-                        2'b01: set1[set_index][WORD_SIZE * word_offset +: WORD_SIZE / 2] <= data[WORD_SIZE / 2 - 1:0]; // half word
+                        2'b00: set1[set_index][WORD_SIZE * word_offset + (BYTE_SIZE * byte_offset) +: WORD_SIZE / 4] <= data[WORD_SIZE / 4 - 1:0]; // byte
+                        2'b01: set1[set_index][WORD_SIZE * word_offset + (BYTE_SIZE * byte_offset) +: WORD_SIZE / 2] <= data[WORD_SIZE / 2 - 1:0]; // half word
                         2'b10: set1[set_index][WORD_SIZE * word_offset +: WORD_SIZE] <= data; // word
                     endcase
                     dirty1[set_index] <= 1;

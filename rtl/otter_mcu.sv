@@ -233,7 +233,7 @@ module OTTER_MCU (
             default: BRANCH_target = DE_EX.PC + DE_EX.imm;
         endcase
 
-        // ?auipc
+        // ? auipc
         case (DE_EX.IR[6:0])
             7'b0010111: alu_result = BRANCH_target;
             default : alu_result = internal_alu;
