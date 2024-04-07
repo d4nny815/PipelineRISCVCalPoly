@@ -36,7 +36,7 @@ module InstrL1 #(
     localparam SET_LINE_BITS = $clog2(LINES_PER_SET);
     localparam WORD_OFFSET_BITS = $clog2(WORDS_PER_LINE);
     localparam TAG_BITS = ADDR_SIZE - SET_LINE_BITS - WORD_OFFSET_BITS;
-    localparam SET_SIZE = WORDS_PER_LINE * LINES_PER_SET;
+    localparam SET_SIZE = WORDS_PER_LINE * WORD_SIZE;
 
     logic [SET_SIZE - 1:0] set0 [LINES_PER_SET - 1:0];
     logic [SET_SIZE - 1:0] set1 [LINES_PER_SET - 1:0];

@@ -48,7 +48,7 @@ module DataL1 #(
     localparam SET_LINE_BITS = $clog2(LINES_PER_SET);
     localparam WORD_OFFSET_BITS = $clog2(WORDS_PER_LINE);
     localparam TAG_BITS = ADDR_SIZE - SET_LINE_BITS - WORD_OFFSET_BITS - BYTE_OFFSET_BITS;
-    localparam SET_SIZE = WORDS_PER_LINE * LINES_PER_SET;
+    localparam SET_SIZE = WORDS_PER_LINE * WORD_SIZE;
 
     logic [SET_SIZE - 1:0] set0 [LINES_PER_SET - 1:0];
     logic [SET_SIZE - 1:0] set1 [LINES_PER_SET - 1:0];
@@ -94,7 +94,7 @@ module DataL1 #(
         hit = hit0 ^ hit1;
         word_buffer = line_buffer[WORD_SIZE * (word_offset + 1) - 1 -: WORD_SIZE];
 
-        aout = lru_bits[set_index] ? {tag1[set_index], set_index, 5'd0} : {tag0[set_index], set_index, 3'd0, addr[1:0]};
+        aout = lru_bits[set_index] ? {tag1[set_index], set_index} << (WORD_OFFSET_BITS + BYTE_OFFSET_BITS) : {tag0[set_index], set_index} << (WORD_OFFSET_BITS + BYTE_OFFSET_BITS);
     end
 
     always_comb begin

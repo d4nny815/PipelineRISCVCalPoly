@@ -79,9 +79,9 @@ module OTTER_MCU (
 //        .MEM_DOUT2      (memRead_data)  
 //    );
 
-    Memory OTTER_MEMORY (
+    OtterMemory OTTER_MEMORY (
         .MEM_CLK        (CLK),
-        .RST            (RESET),
+        .MEM_RST        (RESET),
         .MEM_RDEN1      (1'b1),             // ! hardcoded for now  
         .MEM_RDEN2      (EX_MEM.memRead),    
         .MEM_WE2        (EX_MEM.memWrite),
@@ -94,8 +94,8 @@ module OTTER_MCU (
         .IO_WR          (IOBUS_WR),
         .MEM_DOUT1      (IR),
         .MEM_DOUT2      (memRead_data),
-        .memValid1      (memValid1),
-        .memValid2      (memValid2)  
+        .MEM_VALID1     (memValid1),
+        .MEM_VALID2     (memValid2)  
     );
     
 

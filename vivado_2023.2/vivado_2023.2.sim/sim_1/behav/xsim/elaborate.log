@@ -7,9 +7,9 @@ Starting static elaboration
 Pass Through NonSizing Optimizer
 Completed static elaboration
 Starting simulation data flow analysis
-WARNING: [VRFC 10-2649] an enum variable may only be assigned the same enum typed variable or one of its values [C:/Users/D4nny/Documents/tmp/PipelineRISCV_CalPolyCPE333/rtl/control_unit.sv:30]
-WARNING: [VRFC 10-2649] an enum variable may only be assigned the same enum typed variable or one of its values [C:/Users/D4nny/Documents/tmp/PipelineRISCV_CalPolyCPE333/rtl/Branch_cond_gen.sv:46]
-WARNING: [VRFC 10-2649] an enum variable may only be assigned the same enum typed variable or one of its values [C:/Users/D4nny/Documents/tmp/PipelineRISCV_CalPolyCPE333/rtl/alu.sv:44]
+WARNING: [VRFC 10-2649] an enum variable may only be assigned the same enum typed variable or one of its values [C:/Users/D4nny/Documents/HDL/PipelineRISCV_CalPolyCPE333/rtl/control_unit.sv:30]
+WARNING: [VRFC 10-2649] an enum variable may only be assigned the same enum typed variable or one of its values [C:/Users/D4nny/Documents/HDL/PipelineRISCV_CalPolyCPE333/rtl/Branch_cond_gen.sv:46]
+WARNING: [VRFC 10-2649] an enum variable may only be assigned the same enum typed variable or one of its values [C:/Users/D4nny/Documents/HDL/PipelineRISCV_CalPolyCPE333/rtl/alu.sv:44]
 Completed simulation data flow analysis
 Time Resolution for simulation is 1ps
 Compiling package xil_defaultlib.structs
@@ -17,9 +17,9 @@ Compiling module xil_defaultlib.reg_nb(n=32)
 Compiling module xil_defaultlib.InstrL1_default
 Compiling module xil_defaultlib.DataL1_default
 Compiling module xil_defaultlib.CacheLineAdapter_default
-Compiling module xil_defaultlib.MainMemory(DELAY_BITS=3)
+Compiling module xil_defaultlib.SinglePortDelayMemory(BURST_LEN=...
 Compiling module xil_defaultlib.CacheController
-Compiling module xil_defaultlib.Memory
+Compiling module xil_defaultlib.OtterMemory_default
 Compiling module xil_defaultlib.ControlUnit
 Compiling module xil_defaultlib.ImmedGen
 Compiling module xil_defaultlib.RegFile

@@ -36,8 +36,7 @@ module CacheController (
     input logic re_imem,
     input logic hit_imem,
 
-    input logic re_dmem,
-    input logic we_cpu_dmem,
+    input logic dmem_access,
     input logic hit_dmem,
     input logic dirty_dmem,
     
@@ -77,18 +76,15 @@ module CacheController (
 
 
     always_ff @(posedge clk) begin
-        if (reset == 1) begin
+        if (reset == 1) 
             state <= INIT;
-        end
         else
             state <= next_state;
     end
 
-    logic dmem_access;
 
 
     always_comb begin
-        dmem_access = re_dmem | we_cpu_dmem;
         clr = 1'b0; memValid1 = 1'b0; memValid2 = 1'b0; sel_cl = 2'b0; 
         we_imem = 1'b0; we_dmem = 1'b0; we_cl = 1'b0; next_cl = 1'b0; re_mm = 1'b0; we_mm = 1'b0;
 
@@ -100,7 +96,7 @@ module CacheController (
 
             CHECK_L1: begin
                 memValid1 = hit_imem & re_imem;
-                memValid2 = hit_dmem & (re_dmem | we_cpu_dmem);
+                memValid2 = hit_dmem & dmem_access;
 
                 if (hit_imem && re_imem && ~dmem_access) begin
                     next_state = CHECK_L1;

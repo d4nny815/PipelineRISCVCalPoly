@@ -1,3 +1,4 @@
 Time resolution is 1 ps
+WARNING: File otter_mem.mem referenced on C:/Users/D4nny/Documents/HDL/PipelineRISCV_CalPolyCPE333/rtl/alu.sv at line 44 cannot be opened for reading. Please ensure that this file is available in the current working directory or parent directory of xsim.dir location specified via -xsimdir switch.
 Passed Testall
-$finish called at time : 1729955 ns : File "C:/Users/D4nny/Documents/tmp/PipelineRISCV_CalPolyCPE333/rtl/test_pipeline.sv" Line 52
+$finish called at time : 11495 ns : File "C:/Users/D4nny/Documents/HDL/PipelineRISCV_CalPolyCPE333/rtl/test_pipeline.sv" Line 52

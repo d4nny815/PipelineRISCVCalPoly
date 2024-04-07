@@ -5,31 +5,9 @@
 // * THE L1s are 2-way set associative caches with 32 lines per set and 8 words per line
 // * The second level is the main memory that is used to store the data
 
-/*
 
-    instaniate MainMemory
-    Memory myMemory (
-        .MEM_CLK        (),
-        .RST            (),
-        .MEM_RDEN1      (),        
-        .MEM_RDEN2      (),        
-        .MEM_WE2        (),        
-        .MEM_ADDR1      (),        
-        .MEM_ADDR2      (),        
-        .MEM_DIN2       (),        
-        .MEM_SIZE       (),        
-        .MEM_SIGN       (),        
-        .MEM_DOUT1      (),        
-        .MEM_DOUT2      (),        
-        .memValid1      ()
-    );
-    )
-*/
-
-module Memory #(
-    parameter DELAY_BITS = 4
-    ) (
-    input RST,
+module OtterMemory (
+    input MEM_RST,
     input MEM_CLK, 
     input MEM_RDEN1,                // read enable Instruction
     input MEM_RDEN2,                // read enable data
@@ -43,9 +21,17 @@ module Memory #(
     output logic IO_WR,             // IO 1-write 0-read
     output logic [31:0] MEM_DOUT1,  // Instruction
     output logic [31:0] MEM_DOUT2,  // Data
-    output logic memValid1,
-    output logic memValid2
+    output logic MEM_VALID1,
+    output logic MEM_VALID2
     );
+
+    localparam INSTR_ADDR_BITS = 14;
+    localparam DATA_ADDR_BITS = 32;
+    localparam WORD_SIZE = 32;
+    localparam WORDS_PER_LINE = 8;
+    localparam LINES_PER_SET = 32;
+    localparam WORD_OFFSET_BITS = $clog2(WORDS_PER_LINE);
+    localparam BYTE_OFFSET_BITS = 2;
 
     // IMEM signals
     logic imem_hit;
@@ -79,10 +65,10 @@ module Memory #(
     end
 
     InstrL1 #(
-        .ADDR_SIZE      (14), 
-        .WORD_SIZE      (32),
-        .LINES_PER_SET  (32),
-        .WORDS_PER_LINE (8)
+        .ADDR_SIZE      (INSTR_ADDR_BITS), 
+        .WORD_SIZE      (WORD_SIZE),
+        .LINES_PER_SET  (LINES_PER_SET),
+        .WORDS_PER_LINE (WORDS_PER_LINE)
     ) instr_mem (
         .clk            (MEM_CLK),
         .reset          (clr),
@@ -97,20 +83,20 @@ module Memory #(
        case (cl_sel)
             2'b00: dmem_addr_i = MEM_ADDR2;
             2'b01: dmem_addr_i = line_addr;
-            2'b10: dmem_addr_i = {MEM_ADDR2[31:5], line_addr[5:0]};
+            2'b10: dmem_addr_i = {MEM_ADDR2[31:WORD_OFFSET_BITS + BYTE_OFFSET_BITS], line_addr[WORD_OFFSET_BITS + BYTE_OFFSET_BITS - 1:0]};
             default: dmem_addr_i = 32'hdead_beef;
         endcase
     end
 
     DataL1 #(
-        .ADDR_SIZE      (32), 
-        .WORD_SIZE      (32),
-        .LINES_PER_SET  (32),
-        .WORDS_PER_LINE (8)
+        .ADDR_SIZE      (DATA_ADDR_BITS), 
+        .WORD_SIZE      (WORD_SIZE),
+        .LINES_PER_SET  (LINES_PER_SET),
+        .WORDS_PER_LINE (WORDS_PER_LINE)
     ) data_mem (
         .clk            (MEM_CLK),
         .reset          (clr),
-        .we             (cl_sel[0] ? 1'b0 : MEM_WE2),
+        .we             (MEM_WE2),
         .we_cache       (dmem_we),
         .sign           (cl_sel[0] ? 1'b0 : MEM_SIGN),
         .size           (cl_sel[0] ? 2'b10 : MEM_SIZE),
@@ -126,14 +112,14 @@ module Memory #(
         case (cl_sel)
             2'b00: cl_addr_i = {16'h0, MEM_ADDR1, 2'b0};
             2'b01: cl_addr_i = MEM_ADDR2;
-            2'b10: cl_addr_i = {wb_addr[31:5], line_addr[4:0]};
+            2'b10: cl_addr_i = {wb_addr[31:WORD_OFFSET_BITS + BYTE_OFFSET_BITS], line_addr[WORD_OFFSET_BITS + BYTE_OFFSET_BITS - 1:0]};
             default: cl_addr_i = 32'hdead_beef;
         endcase
     end
 
     CacheLineAdapter #(
-        .WORD_SIZE      (32),
-        .WORDS_PER_LINE (8)
+        .WORD_SIZE      (WORD_SIZE),
+        .WORDS_PER_LINE (WORDS_PER_LINE)
     ) cache_line_adapter (
         .clk            (MEM_CLK),
         .clr            (clr),
@@ -146,16 +132,17 @@ module Memory #(
         .full           (cl_full)
     );
 
-    MainMemory #(
-        .DELAY_BITS     (3)
+    SinglePortDelayMemory #(
+        .DELAY_CYCLES   (10),
+        .BURST_LEN      (WORDS_PER_LINE)
     ) main_memory (
-        .MEM_CLK        (MEM_CLK),
-        .MEM_RE         (mm_re),        
-        .MEM_WE         (mm_we),        
-        .MEM_DATA_IN    (line_data),        
-        .MEM_ADDR       (line_addr[31:2]),        
-        .MEM_DOUT       (mm_data),        
-        .memValid       (mm_mem_valid)
+        .CLK        (MEM_CLK),
+        .RE         (mm_re),        
+        .WE         (mm_we),        
+        .DATA_IN    (line_data),        
+        .ADDR       ({2'b0, line_addr[31:2]}),        
+        .DATA_OUT   (mm_data),        
+        .MEM_VALID  (mm_mem_valid)
     );
 
     CacheController cache_controller (
@@ -163,14 +150,13 @@ module Memory #(
         .reset          (RST),
         .re_imem        (MEM_RDEN1),
         .hit_imem       (imem_hit),
-        .re_dmem        (MEM_RDEN2),
-        .we_cpu_dmem    (MEM_WE2),
+        .dmem_access    (MEM_RDEN2 | MEM_WE2),
         .hit_dmem       (dmem_hit),
         .dirty_dmem     (dmem_dirty),
         .full_cl        (cl_full),
         .mem_valid_mm   (mm_mem_valid),
         .clr            (clr),
-        .memValid1      (memValid1),
+        .memValid1      (MEM_VALID1),
         .memValid2      (memValid2_control),
         .sel_cl         (cl_sel),
         .we_imem        (imem_we),
@@ -190,8 +176,8 @@ module Memory #(
             IO_WR = 1'b0;
             MEM_DOUT2 = memValid2_control & mem_addr_valid2 ? data_buffer : 32'hdead_beef;
         end
-        MEM_DOUT1 = memValid1 & mem_addr_valid1 ? instr_buffer : 32'hdead_beef;
-        memValid2 = (MEM_WE2 || MEM_RDEN2) && ~mem_map_io ? memValid2_control : 1'b1;
+        MEM_DOUT1 = MEM_VALID1 & mem_addr_valid1 ? instr_buffer : 32'hdead_beef;
+        MEM_VALID2 = (MEM_WE2 || MEM_RDEN2) && ~mem_map_io ? memValid2_control : 1'b1;
     end
 
 endmodule
