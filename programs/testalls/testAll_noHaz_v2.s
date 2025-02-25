@@ -349,7 +349,11 @@ Load_tests:
 	nop
 	nop
 	#Load test
-	la t0, TESTLOAD
+	#la t0, TESTLOAD
+	auipc t0, 6
+	nop
+	nop
+	addi t0, t0, -0x3d8
 	nop
 	nop
 	lw t1, 0(t0)
@@ -363,7 +367,11 @@ STORE_tests:
 	nop
 	nop
 	#Store test
-	la t0, TESTSTORE
+	#la t0, TESTSTORE
+	auipc t0, 6
+	nop
+	nop
+	addi t0, t0, -0x410
 	nop
 	nop
 	sw a0, 0(t0)
@@ -387,7 +395,7 @@ U_tests:
 	auipc t0, 6
 	nop 
 	nop
-	addi t0, t0, -0x444
+	addi t0, t0, -0x454
 	nop
 	nop
 	lw t1, 0(t0) #t1 should now hold the value 6000
