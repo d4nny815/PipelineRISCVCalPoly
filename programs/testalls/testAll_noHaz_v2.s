@@ -383,7 +383,11 @@ U_tests:
 	nop
 	
 	#Load upper immediate test
-	la t0, TESTU
+	#la t0, TESTU
+	auipc t0, 6
+	nop 
+	nop
+	addi t0, t0, -0x444
 	nop
 	nop
 	lw t1, 0(t0) #t1 should now hold the value 6000
